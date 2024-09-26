@@ -7,12 +7,12 @@ const app = express();
 
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Change this to the actual origin of your frontend
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Adjust methods as necessary
-    credentials: true // Allow cookies if needed
+    origin: 'http://localhost:5173', // Ensure this is exactly your frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
 };
-
 app.use(cors(corsOptions));
+
 
 app.use(express.json())
 app.use('/', productRoutes);
