@@ -5,7 +5,7 @@ const cors = require('cors');
 const productRoutes = require('./controllers/productController')
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'https://eccom-backend.onrender.com' }));
 app.use(express.json())
 app.use('/', productRoutes);
 
