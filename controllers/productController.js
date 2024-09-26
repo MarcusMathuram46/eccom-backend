@@ -23,15 +23,31 @@ router.get('/products', async (req, res) => {
 
 
 // Get products by category
+// Get products by category with pagination
 router.get('/products/category/:category', async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
   try {
     const category = req.params.category;
-    const products = await Product.find({ category });
-    res.json(products);
+
+    // Find products by category and apply pagination
+    const products = await Product.find({ category })
+      .skip((page - 1) * limit)
+      .limit(Number(limit));
+
+    // Count the total number of products in this category
+    const totalProducts = await Product.countDocuments({ category });
+
+    res.json({
+      products, // The actual products array
+      totalPages: Math.ceil(totalProducts / limit), // Total pages based on category
+      currentPage: Number(page),
+      totalProducts  // Total number of products in this category
+    });
   } catch (error) {
     res.status(500).json({ message: 'Error fetching products by category', error });
   }
 });
+
 
 router.get('/products/search', async (req, res) => {
   const searchTerm = req.query.name || '';
