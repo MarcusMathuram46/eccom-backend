@@ -6,12 +6,8 @@ const productRoutes = require('./controllers/productController')
 const app = express();
 
 
-const corsOptions = {
-    origin: 'http://localhost:5173', // Ensure this is exactly your frontend URL
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true
-};
-app.use(cors(corsOptions));
+app.use(cors());
+
 
 
 app.use(express.json())
